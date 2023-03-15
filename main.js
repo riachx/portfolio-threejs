@@ -3,9 +3,11 @@ import './style.css'
 import * as THREE from 'three';
 
 import {OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-//scene, camera, renderer
+
+// SCENE, CAMERA, RENDERER
 
 const scene = new THREE.Scene();
+//scene.background(0xFF6347);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -18,7 +20,7 @@ camera.position.setZ(30);
 
 renderer.render(scene, camera);
 
-// objects
+// OBJECTS
 
 const geometry = new THREE.TorusGeometry(10,3,16,100);
 const material = new THREE.MeshStandardMaterial({color:0xFF6347});
@@ -49,7 +51,34 @@ scene.add(lightHelper, gridHelper)
 
 scene.add(torus, octahedron)
 
+// BLOB OBJECT
+
+//const blobTexture = new THREE.TextureLoader().load('');
+
+/*
+const blob = new THREE.Mesh(
+  new THREE.Geometry
+  new THREE.MeshBasicMaterial({map:blobTexture})
+
+  
+);*/
+
+
 const controls = new OrbitControls(camera, renderer.domElement);
+
+function addStar(){
+  const geometry = new THREE.SphereGeometry(0.25,24,24);
+  const material = new THREE.MeshStandardMaterial({color:0xFF6347});
+  const star = new THREE.Mesh(geometry,material);
+  const [x,y,z] = Array(3).fill().map(()=>THREE.MathUtils.randFloatSpread(100));
+  star.position.set(x,y,z);
+  scene.add(star);
+}
+Array(200).fill().forEach(addStar);
+
+const spaceTexture = new THREE.TextureLoader().load('https://i.imgur.com/mct8FI5.jpg');
+scene.background = spaceTexture;
+// ANIMATION
 
 function animate(){
   requestAnimationFrame( animate );
@@ -57,6 +86,9 @@ function animate(){
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
+
+  controls.update();
+
   renderer.render( scene, camera );
 }
 
