@@ -3,3 +3,36 @@ canvas{
   top: 0;
   left: 0;
 }
+
+main{
+  position: absolute;
+}
+
+h1{
+  color: white;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h2{
+  color: white;
+  font-size: 100px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+p{
+  color: white;
+  
+}
+
+left{
+  color:white;
+}
+header{
+  position: fixed;
+  right: 0;
+  padding-right: 30px;
+}
+lower{
+  position: absolute;
+
+}
