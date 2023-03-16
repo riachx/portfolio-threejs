@@ -71,13 +71,13 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(20, 20, 5);
 
 
-scene.add(pointLight, ambientLight, directionalLight);
+scene.add(pointLight, ambientLight,directionalLight);
 
 // HELPERS
 
 const lightHelper = new THREE.DirectionalLightHelper(directionalLight)
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper)
+//const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper)
 
 const ball_base = new THREE.TextureLoader().load('assets/textures/squiggle_base.png');
 const ball_normal = new THREE.TextureLoader().load('assets/textures/squiggle_normal.png');
@@ -93,6 +93,8 @@ ball.load('assets/models/squigglyball.fbx', function (fbx) {
 
   const ball_mat = new THREE.MeshStandardMaterial({
     color: 0xc6c983,
+    emissive: 0xffffff,
+    emissiveIntensity: 0.2,
     //map: ball_base,
     normalMap: ball_normal,
     roughness: ball_rough,
@@ -142,6 +144,8 @@ function moveCamera() {
   octahedron.rotation.y += 0.075;
   octahedron.rotation.z += 0.05;
 
+  
+
   camera.position.z = t * -0.01 + 20; // offset value
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.02;
@@ -163,7 +167,7 @@ function animate() {
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
 
-  octahedron.rotation.x += 0.001;
+  octahedron.rotation.x += 0.01;
 
   
   //controls.update();
