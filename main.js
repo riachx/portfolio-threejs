@@ -24,7 +24,6 @@ window.addEventListener('resize', onWindowResize);
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
@@ -71,7 +70,7 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(20, 20, 5);
 
 
-scene.add(pointLight, ambientLight,directionalLight);
+scene.add(pointLight, ambientLight, directionalLight);
 
 // HELPERS
 
@@ -144,13 +143,9 @@ function moveCamera() {
   octahedron.rotation.y += 0.075;
   octahedron.rotation.z += 0.05;
 
-  
-
   camera.position.z = t * -0.01 + 20; // offset value
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.02;
-
-
 
 }
 
@@ -169,7 +164,7 @@ function animate() {
 
   octahedron.rotation.x += 0.01;
 
-  
+
   //controls.update();
 
   renderer.render(scene, camera);
