@@ -6,7 +6,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 
-
 // SCENE, CAMERA, RENDERER
 
 const scene = new THREE.Scene();
@@ -44,6 +43,8 @@ const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({ color: 0xFF6347 });
 const torus = new THREE.Mesh(geometry, material);
 
+const torus2 = new THREE.Mesh(geometry, material);
+
 
 const oct = new THREE.OctahedronGeometry(6, 1, 2, 100);
 const oct_mat = new THREE.MeshStandardMaterial({
@@ -57,7 +58,9 @@ const oct_mat = new THREE.MeshStandardMaterial({
 });
 const octahedron = new THREE.Mesh(oct, oct_mat);
 
-scene.add(torus, octahedron);
+scene.add(torus2, torus, octahedron);
+
+torus2.position.set(0, 50, -20);
 
 // LIGHTS
 const pointLight = new THREE.PointLight(0xffffff);
@@ -68,7 +71,6 @@ ambientLight.position.set(5, 5, 5);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(20, 20, 5);
-
 
 scene.add(pointLight, ambientLight, directionalLight);
 
@@ -163,7 +165,6 @@ function animate() {
   torus.rotation.z += 0.01;
 
   octahedron.rotation.x += 0.01;
-
 
   //controls.update();
 
