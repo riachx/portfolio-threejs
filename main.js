@@ -10,8 +10,8 @@ import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
-// SCENE, CAMERA, RENDERER
 
+// SCENE, CAMERA, RENDERER
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -109,14 +109,20 @@ material.needsUpdate = true;
 
 //PLANE
 
-const flower = new THREE.TextureLoader().load('flower.jpeg');
+//const flower = new THREE.TextureLoader().load('flower.jpeg');
 
-/*const plane_geo = new THREE.PlaneGeometry(10,10);
-const plane_mat = new THREE.MeshBasicMaterial({ map: flower });
+/*const plane_geo = new THREE.PlaneGeometry(60,60);
+const plane_geo2 = new THREE.PlaneGeometry(3,3);
+
+const plane_mat = new THREE.MeshBasicMaterial({ color: 0xffffff});
 const plane = new THREE.Mesh(plane_geo, plane_mat);
-scene.add(plane);
-plane.rotation.set(0,0,0);
-plane.position.set(0,0,10);*/
+const plane2 = new THREE.Mesh(plane_geo2, plane_mat);
+scene.add(plane,plane2);
+plane.rotation.set(90,0,0);
+plane.position.set(0,20,0);
+
+plane2.position.set(0,0,12);
+plane2.rotation.set(0,30,0);*/
 // ICE CUBE
 
 
@@ -128,35 +134,27 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
   //loadedModel.name = 'cube_fbx';
   fbx.name = 'Cube_fbx'
   fbx.position.set(0,0,10);
-  fbx.scale.set(0.025, 0.025, 0.025);
+  fbx.scale.set(0.035, 0.035, 0.035);
   fbx.rotation.set(90,120,90);
 
   
-  /*const ball_mat = Object.assign(new MeshTransmissionMaterial(10), {
+  const ball_mat = Object.assign(new MeshTransmissionMaterial(8), {
     
-    side: THREE.DoubleSide,
-    opacity: 0.8,
-    transparent: true,
-    clearcoat: 1,
+    
     clearcoatRoughness: 0,
     transmission: 1,
     chromaticAberration: 0.03,
     anisotropy: 0.1,
     // Set to > 0 for diffuse roughness
-    roughness: 0.07,
-    thickness: 5,
+    roughness: 0,
+    thickness: 3,
     ior: 1.5,
-    // Set to > 0 for animation
-    distortion: 0.1,
-    distortionScale: 0.2,
-    temporalDistortion: 0.2,
-    meshPhysicalMaterial: false,
-    transmissionSampler: false,
-    backside: true,
-    backsideThickness: 2,
 
     
-  });*/
+
+
+    
+  });/*
   
   const ball_mat = new THREE.MeshPhysicalMaterial({
     
@@ -179,7 +177,7 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
   metalness: 0.2,
   envMapIntensity: 0.2,
     
-  });
+  });*/
   fbx.traverse((child) => {
     if (child.isMesh) {
       child.material = ball_mat;
@@ -323,9 +321,6 @@ function moveCamera() {
 
   const t = document.body.getBoundingClientRect().top;
 
-  /*octahedron.rotation.x += 0.05;
-  octahedron.rotation.y += 0.075;
-  octahedron.rotation.z += 0.05;*/
 
   camera.position.z = t * -0.01 + 20; // offset value
   camera.position.x = t * -0.0002;
