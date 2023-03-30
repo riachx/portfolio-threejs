@@ -1,3 +1,20 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("fonts/Poppins-Thin.ttf") format("truetype"), /* Thin */
+       url("fonts/Poppins-Medium.ttf") format("truetype"), /* Medium */
+       url("fonts/Poppins-Light.ttf") format("truetype"), /* Light */
+       url("fonts/Poppins-ExtraLight.ttf") format("truetype"), /* ExtraLight */
+       url("fonts/Poppins-Bold.ttf") format("truetype"), /* Bold */
+       url("fonts/Poppins-ExtraBold.ttf") format("truetype"); /* ExtraBold */
+  font-weight: 100, 200, 300, 400, 700, 800; /* Light, Regular, Bold */
+  font-style: normal;
+}
+@font-face {
+  font-family: "PoppinsMedium";
+       src: url("fonts/Poppins-Medium.ttf") format("truetype"); /* Medium */
+  font-weight: 500;
+
+}
 canvas {
   position: fixed;
   top: 0;
@@ -20,6 +37,41 @@ h2 {
   color: white;
   font-size: 100px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+sideways {
+  
+  margin-top: 520px;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  letter-spacing: 1px;
+  font-size: 40px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  
+}
+
+
+sideways-lower {
+  
+  margin-top: 1500px;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  letter-spacing: 1px;
+  font-size: 40px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  
+}
+
+.arrow {
+  font-size: 2em;
+  font-weight: 100;
+  padding-bottom: 20px;
+  margin-left: 10px;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-family: 'Poppins', sans-serif;
 }
 
 p {
