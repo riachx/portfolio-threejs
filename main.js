@@ -11,10 +11,16 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
+
+
+// Animation variables
+
+
 // SCENE, CAMERA, RENDERER
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
@@ -23,6 +29,7 @@ const renderer = new THREE.WebGLRenderer({
 // resize window 
 
 window.addEventListener('resize', onWindowResize);
+
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -80,6 +87,26 @@ const material = new THREE.MeshPhysicalMaterial();
 
 //const torus2 = new THREE.Mesh(geometry, material);
 
+const torusmesh = new THREE.TorusKnotGeometry(10, 3, 100, 100);
+const torusmat = Object.assign(new MeshTransmissionMaterial(8), {
+    
+  clearcoatRoughness: 0,
+  transmission: 0.95,
+  chromaticAberration: 0.2,
+  //anisotropy: 0.5,
+  // Set to > 0 for diffuse roughness
+  roughness: 0.3,
+  thickness: 7,
+  ior: 1.2,
+  envMapIntensity: 50,
+  bloomstrength:50,
+  distortion: 0.3,
+  distortionScale: 0.1,
+
+});
+const torus = new THREE.Mesh(torusmesh,torusmat);
+torus.position.set(0,40,0);
+scene.add(torus);
 
 const oct = new THREE.OctahedronGeometry(10, 1, 2, 100);
 
@@ -140,7 +167,6 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
   
   const ball_mat = Object.assign(new MeshTransmissionMaterial(8), {
     
-    
     clearcoatRoughness: 0,
     transmission: 1,
     chromaticAberration: 0.03,
@@ -149,11 +175,12 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
     roughness: 0,
     thickness: 3,
     ior: 1.5,
+    envMapIntensity: 7,
 
-    
+    distortion: 0,
+    distortionScale: 0.5,
+    temporalDistortion: 0.0,
 
-
-    
   });/*
   
   const ball_mat = new THREE.MeshPhysicalMaterial({
@@ -197,49 +224,15 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
 
 
 
-//scene.background = texture;
-//scene.environment = texture;
 
 } );
 
-// CUBE
-
-/*const bgTexture = new THREE.TextureLoader().load('https://i.imgur.com/mct8FI5.jpg');
-scene.background = bgTexture;
-
-const box = new THREE.BoxGeometry(10,10,10);
-const boxmat = new THREE.MeshStandardMaterial({
-  color:0xff934f,
-  roughness: 0.5,
-})
-const box1 = new THREE.Mesh(box, boxmat);*/
 
 const spaceTexture = new THREE.TextureLoader().load('background.png');
 //const pastelgreen = new THREE.Color(0xabc98d);
 scene.background = spaceTexture;
 
-/*
-const box = new THREE.BoxGeometry(10, 10, 10);
-const boxtex = new THREE.TextureLoader().load('https://i.imgur.com/mct8FI5.jpg');
-const boxmat = new THREE.MeshStandardMaterial({
-  
-  //map: boxtex,
-  roughness: 0.4,
-  opacity: 0.7,
-  transparent: true,
-  thickness:1,
-  //metalness: 0.2,
-  envMapIntensity: 1.0,
-});
 
-material.envMap = boxtex;
-material.envMap.mapping = THREE.CubeReflectionMapping;
-material.envMap.mapping = THREE.CubeRefractionMapping;
-
-const cube = new THREE.Mesh(box, boxmat);
-scene.add(cube);
-*/
-//NEW TEXT
 /*
 const fontloader = new FontLoader();
 
@@ -257,7 +250,6 @@ fontloader.load( 'fonts/Graphik_Semibold_Regular.json', function ( graphikfont )
 */
 
 
-//torus2.position.set(0, 50, -20);
 
 // LIGHTS
 const pointLight = new THREE.PointLight(0xffffff);
@@ -332,20 +324,25 @@ document.body.onscroll = moveCamera;
 camera.position.set(0, 50, 50);
 moveCamera();
 
+
+
+
 // ANIMATION
 function animate() {
 
   requestAnimationFrame(animate);
-  //torus.rotation.x += 0.001;
-  //torus.rotation.y += 0.005;
-  //torus.rotation.z += 0.01;
+  torus.rotation.x += 0.01;
+  torus.rotation.y += 0.01;
+  torus.rotation.z += 0.01;
 
   var fbxObj = scene.getObjectByName('Cube_fbx');
   if(fbxObj){
     fbxObj.rotation.x += 0.01;
-    fbxObj.rotateZ +=0.01;
+    
   }
+	
   renderer.render(scene, camera);
 }
 
 animate();
+
