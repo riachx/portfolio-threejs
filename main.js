@@ -15,12 +15,10 @@ import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
 // Animation variables
 
-
 // SCENE, CAMERA, RENDERER
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
@@ -228,26 +226,55 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
 } );
 
 
-const spaceTexture = new THREE.TextureLoader().load('background.png');
+//const spaceTexture = new THREE.TextureLoader().load('background.png');
 //const pastelgreen = new THREE.Color(0xabc98d);
-scene.background = spaceTexture;
+//scene.background = spaceTexture;
 
-
-/*
 const fontloader = new FontLoader();
 
-fontloader.load( 'fonts/Graphik_Semibold_Regular.json', function ( graphikfont ) {
+fontloader.load( 'fonts/Poppins_Bold.json', function ( font ) {
 
-	const textGeometry = new TextGeometry( 'Hello three.js!', {
-		size: 80,
-		height: 5,
-    font: graphikfont,
+	const text_explore = new TextGeometry( 'Explore', {
+		
+    size: 3,
+		height: 0.01,
+    font: font,
+		bevelEnabled: true,
+		bevelThickness: 0,
+		bevelSize: 0.08,
 	} );
-  const textMaterial = new THREE.MeshNormalMaterial();
-  const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-  textMesh.position.x = -36;
+
+  const text_new = new TextGeometry( 'New', {
+		
+    size: 3,
+		height: 0.01,
+    font: font,
+		bevelEnabled: true,
+		bevelThickness: 0,
+		bevelSize: 0.08,
+	} );
+
+  const text_ideas = new TextGeometry( 'Ideas.', {
+		
+    size: 3,
+		height: 0.01,
+    font: font,
+		bevelEnabled: true,
+		bevelThickness: 0,
+		bevelSize: 0.08,
+	} );
+
+  const textMaterial = new THREE.MeshPhysicalMaterial({color:0xffffff});
+  const textMesh1 = new THREE.Mesh(text_explore, textMaterial);
+  const textMesh2 = new THREE.Mesh(text_new, textMaterial);
+  const textMesh3 = new THREE.Mesh(text_ideas, textMaterial);
+  scene.add(textMesh1,textMesh2,textMesh3);
+  textMesh1.position.set(-7,2.8,6);
+  textMesh2.position.set(-3.7,-2,6);
+  textMesh3.position.set(-5.2,-6.5,6);
 } );
-*/
+
+
 
 
 
@@ -318,6 +345,7 @@ function moveCamera() {
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.02;
 
+  //textMesh1.position.z = t * -0.01 + 20;
 }
 
 document.body.onscroll = moveCamera;
