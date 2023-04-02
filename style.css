@@ -1,3 +1,4 @@
+html{scroll-behavior:smooth}
 @font-face {
   font-family: "Poppins";
   src: url("fonts/Poppins-Thin.ttf") format("truetype"), /* Thin */
@@ -19,10 +20,14 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+  background: url("background.png") no-repeat center center fixed;
+  background-size: cover;
+  
 }
 body {
   background: radial-gradient(#292929, #000000);
-  
+  /* background-image: url("background.png");
+  height: 500px;*/
 }
 main {
   position: absolute;
@@ -40,7 +45,7 @@ h2 {
 }
 
 sideways {
-  
+  color: white;
   margin-top: 520px;
   writing-mode: vertical-lr;
   transform: rotate(180deg);
@@ -53,8 +58,8 @@ sideways {
 
 
 sideways-lower {
-  
-  margin-top: 1500px;
+  color: white;
+  margin-top: 1900px;
   writing-mode: vertical-lr;
   transform: rotate(180deg);
   letter-spacing: 1px;
@@ -63,8 +68,8 @@ sideways-lower {
   font-weight: 200;
   
 }
-
-.arrow {
+a{
+  color: white;
   font-size: 2em;
   font-weight: 100;
   padding-bottom: 20px;
@@ -72,6 +77,18 @@ sideways-lower {
   writing-mode: vertical-lr;
   transform: rotate(180deg);
   font-family: 'Poppins', sans-serif;
+  text-decoration:none
+}
+a:hover{
+  color: grey;
+  font-size: 2em;
+  font-weight: 100;
+  padding-bottom: 20px;
+  margin-left: 10px;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-family: 'Poppins', sans-serif;
+  text-decoration: underline;
 }
 
 p {
@@ -84,12 +101,14 @@ left {
 }
 
 header {
+  color: white;
   position: fixed;
   right: 0;
   padding-right: 30px;
 }
 
 lower {
+  color: white;
   position: absolute;
 
 }

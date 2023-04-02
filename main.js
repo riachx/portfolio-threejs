@@ -219,64 +219,45 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
   console.error(error);
 
 });
-
-
-
-
 } );
 
 
 //const spaceTexture = new THREE.TextureLoader().load('background.png');
 //const pastelgreen = new THREE.Color(0xabc98d);
+//spaceTexture.minFilter = THREE.NearestFilter;
 //scene.background = spaceTexture;
+scene.background=null;
 
 const fontloader = new FontLoader();
 
 fontloader.load( 'fonts/Poppins_Bold.json', function ( font ) {
-
-	const text_explore = new TextGeometry( 'Explore', {
-		
+  const config = ({
     size: 3,
-		height: 0.01,
+    height: 0.001,
     font: font,
-		bevelEnabled: true,
-		bevelThickness: 0,
-		bevelSize: 0.08,
-	} );
+    bevelEnabled: true,
+    bevelThickness: 0,
+    bevelSize: 0.08,
+  });
 
-  const text_new = new TextGeometry( 'New', {
-		
-    size: 3,
-		height: 0.01,
-    font: font,
-		bevelEnabled: true,
-		bevelThickness: 0,
-		bevelSize: 0.08,
-	} );
+	const text_explore = new TextGeometry( 'Explore', {...config,} );
 
-  const text_ideas = new TextGeometry( 'Ideas.', {
-		
-    size: 3,
-		height: 0.01,
-    font: font,
-		bevelEnabled: true,
-		bevelThickness: 0,
-		bevelSize: 0.08,
-	} );
+  const text_new = new TextGeometry( 'New', {...config,} );
 
-  const textMaterial = new THREE.MeshPhysicalMaterial({color:0xffffff});
+  const text_ideas = new TextGeometry( 'Ideas.',{...config,} );
+
+  const textMaterial = new THREE.MeshPhysicalMaterial({color:0xd7dbde});
   const textMesh1 = new THREE.Mesh(text_explore, textMaterial);
   const textMesh2 = new THREE.Mesh(text_new, textMaterial);
   const textMesh3 = new THREE.Mesh(text_ideas, textMaterial);
   scene.add(textMesh1,textMesh2,textMesh3);
+  //camera.add(textMesh1);
   textMesh1.position.set(-7,2.8,6);
+  //textMesh1.position.set(0,-5,-40);
   textMesh2.position.set(-3.7,-2,6);
   textMesh3.position.set(-5.2,-6.5,6);
+  
 } );
-
-
-
-
 
 // LIGHTS
 const pointLight = new THREE.PointLight(0xffffff);
@@ -344,15 +325,13 @@ function moveCamera() {
   camera.position.z = t * -0.01 + 20; // offset value
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.02;
-
+  
   //textMesh1.position.z = t * -0.01 + 20;
 }
 
 document.body.onscroll = moveCamera;
 camera.position.set(0, 50, 50);
 moveCamera();
-
-
 
 
 // ANIMATION
