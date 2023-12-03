@@ -1,6 +1,6 @@
 # portfolio-threejs
 Three.js implementation of the stunning design/octane render created at Loudmob.media. 
-https://www.pinterest.com/pin/756534437424620228/
+https://dribbble.com/shots/15145691-Minimal-Landing-Page-Website-Design-for-Design-World
 
 
 ![alt text](https://i.imgur.com/H84owBb.png)
