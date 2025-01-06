@@ -1,4 +1,4 @@
-# portfolio-threejs
+# Scrollable Glass 3D Page
 Three.js implementation of the stunning design/octane render created at Loudmob.media. 
 https://www.pinterest.com/pin/756534437424620228/
 
