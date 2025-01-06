@@ -1,19 +1,12 @@
 import './style.css'
 
 import * as THREE from 'three';
-import { pcss} from '@pmndrs/vanilla'
 import { MeshTransmissionMaterial } from './MeshTransmissionMaterial.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
-
-
-// Animation variables
 
 // SCENE, CAMERA, RENDERER
 const scene = new THREE.Scene();
@@ -26,7 +19,6 @@ const renderer = new THREE.WebGLRenderer({
 
 
 // resize window 
-
 window.addEventListener('resize', onWindowResize);
 
 
@@ -48,43 +40,8 @@ camera.position.setZ(20);
 renderer.render(scene, camera);
 
 
-// OBJECTS
-
-
-/*const hdrEquirect = new THREE.RGBELoader().load(
-  "empty_warehouse_01_4k.hdr",  
-  () => { 
-    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping; 
-  }
-);*/
-
-
-//const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-//const geometry = new THREE.BoxGeometry(10, 10,10);
 const material = Object.assign(new MeshTransmissionMaterial(8));
-/*const material = new THREE.MeshPhysicalMaterial({ 
-  transmission: 1,
-  thickness: 10,
-  roughness: 0.07,
-  map: null,
-  side: THREE.DoubleSide,
-  clearcoat: 1,
-  clearcoatRoughness: 0.1,
-  normalScale: 1,
-  clearcoatNormalScale: 0.3,
-  normalRepeat: 1,
-  bloomThreshold: 0.85,
-  bloomStrength: 0.8,
-  bloomRadius: 0.33,
-  metalness: 0.4,
-  envMapIntensity: 0.3,
-  //envMap: texture,
- });
- const torus = new THREE.Mesh(geometry, material);
- scene.add(torus);*/
 
-
-//const torus2 = new THREE.Mesh(geometry, material);
 
 const torusmesh = new THREE.TorusKnotGeometry(13, 4, 100, 100);
 const torusmat = Object.assign(new MeshTransmissionMaterial(8), {
@@ -134,25 +91,6 @@ const material_hdri = new THREE.MeshPhysicalMaterial();
 material_hdri.envMap = texture;
 material_hdri.needsUpdate = true;
 
-//PLANE
-
-//const flower = new THREE.TextureLoader().load('flower.jpeg');
-
-/*const plane_geo = new THREE.PlaneGeometry(60,60);
-const plane_geo2 = new THREE.PlaneGeometry(3,3);
-
-const plane_mat = new THREE.MeshBasicMaterial({ color: 0xffffff});
-const plane = new THREE.Mesh(plane_geo, plane_mat);
-const plane2 = new THREE.Mesh(plane_geo2, plane_mat);
-scene.add(plane,plane2);
-plane.rotation.set(90,0,0);
-plane.position.set(0,20,0);
-
-plane2.position.set(0,0,12);
-plane2.rotation.set(0,30,0);*/
-// ICE CUBE
-
-
 const icecube = new FBXLoader();
 
 icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
@@ -200,13 +138,6 @@ icecube.load('/assets/models/chamfercube.fbx', function (fbx) {
 });
 } );
 
-
-//const spaceTexture = new THREE.TextureLoader().load('background.png');
-//const pastelgreen = new THREE.Color(0xabc98d);
-//spaceTexture.minFilter = THREE.NearestFilter;
-//scene.background = spaceTexture;
-
-
 const fontloader = new FontLoader();
 
 fontloader.load( 'fonts/Poppins_ExtraBold.json', function ( font ) {
@@ -241,14 +172,11 @@ fontloader.load( 'fonts/Poppins_ExtraBold.json', function ( font ) {
   const textMesh6 = new THREE.Mesh(text_horizons, textMaterial);
 
   scene.add(textMesh1,textMesh2,textMesh3,textMesh4,textMesh5,textMesh6);
-  //camera.add(textMesh1);
+  
   textMesh1.position.set(-7,2.8,6);
-  //textMesh1.position.set(0,-5,-40);
   textMesh2.position.set(-3.7,-2,6);
   textMesh3.position.set(-5.2,-6.5,6);
-
   textMesh4.position.set(-15,50,4);
-  //textMesh1.position.set(0,-5,-40);
   textMesh5.position.set(-10,40,4);
   textMesh6.position.set(-18,30,4);
   
@@ -267,51 +195,6 @@ directionalLight.position.set(20, 20, 5);
 
 scene.add(pointLight, ambientLight, directionalLight);
 
-// HELPERS
-
-//const lightHelper = new THREE.DirectionalLightHelper(directionalLight)
-//const gridHelper = new THREE.GridHelper(200, 50);
-//scene.add(gridHelper)
-/*
-const ball_base = new THREE.TextureLoader().load('assets/textures/squiggle_base.png');
-const ball_normal = new THREE.TextureLoader().load('assets/textures/squiggle_normal.png');
-const ball_rough = new THREE.TextureLoader().load('assets/textures/squiggle_rough.png');
-const ball_AO = new THREE.TextureLoader().load('assets/textures/squiggle_AO.png');
-
-const ball = new FBXLoader();
-
-ball.load('assets/models/squigglyball.fbx', function (fbx) {
-  //ball.scale.set(100, 100, 100);
-  //ball.position.set(0,0,0);
-  fbx.scale.set(0.12, 0.12, 0.12);
-
-  const ball_mat = new THREE.MeshStandardMaterial({
-    color: 0xc6c983,
-    emissive: 0xffffff,
-    emissiveIntensity: 0.2,
-    //map: ball_base,
-    normalMap: ball_normal,
-    roughness: ball_rough,
-    aoMap: ball_AO,
-    aoMapIntensity: 0.2,
-
-  });
-  //normalMap: textureLoader.load('assets/textures/squiggle_normal.png') // Normal map
-  fbx.traverse((child) => {
-    if (child.isMesh) {
-      child.material = ball_mat;
-    }
-  });
-
-  scene.add(fbx);
-
-}, undefined, function (error) {
-
-  console.error(error);
-
-});*/
-
-//const controls = new OrbitControls(camera, renderer.domElement);
 
 function moveCamera() {
 
@@ -321,8 +204,6 @@ function moveCamera() {
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.02;
   
-  
-  //textMesh1.position.set(0,0,0);
 }
 
 document.body.onscroll = moveCamera;
